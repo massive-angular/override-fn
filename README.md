@@ -35,7 +35,7 @@ originalFn(1, 2, 3);
 // hello from fn: 1, 2, 3
 ```
 
-Use custom parammeters
+Use custom parameters
 ```js
 var overrideFn = require('override-fn');
 
