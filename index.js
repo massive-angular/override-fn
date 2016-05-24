@@ -22,18 +22,23 @@ module.exports = function overrideFn(context, fnName, fn) {
         return fn.apply(this, params);
     };
 
-    Object.defineProperties(context[fnName], {
-        length: {
-            get: function () {
-                return baseFn.length;
+    try {
+        Object.defineProperties(context[fnName], {
+            length: {
+                get: function () {
+                    return baseFn.length;
+                }
+            },
+            name: {
+                get: function () {
+                    return baseFn.name;
+                }
             }
-        },
-        name: {
-            get: function () {
-                return baseFn.name;
-            }
-        }
-    });
+        });
+    }
+    catch (ex) {
+        console.warn(ex);
+    }
 
     context[fnName].toString = function () {
         return baseFn.toString();

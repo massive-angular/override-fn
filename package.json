@@ -17,13 +17,14 @@
   },
   "keywords": [
     "override",
+    "function",
+    "override function",
     "override fn",
     "override-fn",
     "overrideFn",
     "massive",
     "massive-angular",
-    "massive angular",
-    "massiveAngular"
+    "massive angular"
   ],
   "license": "MIT",
   "bugs": {
