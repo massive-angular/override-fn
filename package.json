@@ -1,0 +1,33 @@
+{
+  "name": "override-fn",
+  "version": "1.0.0",
+  "description": "util function to override any other function",
+  "main": "index.js",
+  "contributors": [{
+    "name": "Slava Matvienco",
+    "email": "slava.matvienco@gmail.com"
+  },
+  {
+    "name": "Alexandr Dascal",
+    "email": "alexandr.dascal@gmail.com"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massive-angular/override-fn.git"
+  },
+  "keywords": [
+    "override",
+    "override fn",
+    "override-fn",
+    "overrideFn",
+    "massive",
+    "massive-angular",
+    "massive angular",
+    "massiveAngular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/massive-angular/override-fn/issues"
+  },
+  "homepage": "https://github.com/massive-angular/override-fn#readme"
+}
