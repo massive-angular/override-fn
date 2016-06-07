@@ -1,4 +1,4 @@
-module.exports = function overrideFn(context, fnName, fn) {
+function overrideFn(context, fnName, fn) {
     var baseFn = context[fnName] || function () {};
 
     context[fnName] = function overrideFunction() {
@@ -45,4 +45,12 @@ module.exports = function overrideFn(context, fnName, fn) {
     };
 
     return baseFn;
-};
+}
+
+if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = overrideFn;
+} else if (typeof define === 'function' && define.amd) {
+    define('overrideFn', [], function () {
+        return overrideFn;
+    });
+}

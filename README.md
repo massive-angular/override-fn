@@ -4,7 +4,7 @@ util function to override any other function
 ## Quick start
 Several quick start options are available:
 
-* [Download the latest release](https://github.com/massive-angular/override-fn/archive/v1.0.6.zip)
+* [Download the latest release](https://github.com/massive-angular/override-fn/archive/v1.0.7.zip)
 * Clone the repo: `git clone https://github.com/massive-angular/override-fn.git`
 * Install with [bower](http://bower.io): `bower install override-fn`
 * Install with [npm](https://npmjs.com): `npm install override-fn`
