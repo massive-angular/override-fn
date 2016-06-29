@@ -1,50 +1,65 @@
 function overrideFn(context, fnName, fn) {
-    var baseFn = context[fnName] || function () {};
+    if (typeof fnName === 'string') {
+        return overrideFnInternal(context, fnName, fn);
+    } else {
+        var obj = arguments[1],
+            keys = Object.keys(obj);
 
-    context[fnName] = function overrideFunction() {
-        var args = arguments,
-            params = Array.prototype.slice.call(args),
-            isCalledLikeConstructor = this instanceof overrideFunction;
+        return keys.reduce(function (result, key) {
+            result[key] = overrideFnInternal(context, key, obj[key]);
 
-        params.unshift(function () {
-            var _args = arguments.length ? arguments : args,
-                _params = Array.prototype.slice.call(_args);
-
-            if (isCalledLikeConstructor) {
-                _params.unshift(this);
-
-                return new (Function.prototype.bind.apply(baseFn, _params));
-            }
-
-            return baseFn.apply(this, _params);
-        }.bind(this));
-
-        return fn.apply(this, params);
-    };
-
-    try {
-        Object.defineProperties(context[fnName], {
-            length: {
-                get: function () {
-                    return baseFn.length;
-                }
-            },
-            name: {
-                get: function () {
-                    return baseFn.name;
-                }
-            }
-        });
-    }
-    catch (ex) {
-        console.warn(ex);
+            return result;
+        }, {});
     }
 
-    context[fnName].toString = function () {
-        return baseFn.toString();
-    };
+    function overrideFnInternal(context, fnName, fn) {
+        var baseFn = context[fnName] || function () {};
 
-    return baseFn;
+        context[fnName] = function overrideFunction() {
+            var args = arguments,
+                params = Array.prototype.slice.call(args),
+                isCalledLikeConstructor = this instanceof overrideFunction;
+
+            params.unshift(function () {
+                var _args = arguments.length ? arguments : args,
+                    _params = Array.prototype.slice.call(_args);
+
+                if (isCalledLikeConstructor) {
+                    _params.unshift(this);
+
+                    return new (Function.prototype.bind.apply(baseFn, _params));
+                }
+
+                return baseFn.apply(this, _params);
+            }.bind(this));
+
+            return fn.apply(this, params);
+        };
+
+        try {
+            Object.defineProperties(context[fnName], {
+                length: {
+                    get: function () {
+                        return baseFn.length;
+                    }
+                },
+                name: {
+                    get: function () {
+                        return baseFn.name;
+                    }
+                }
+            });
+        }
+        catch (ex) {
+            console.warn(ex);
+        }
+
+        context[fnName].toString = function () {
+            return baseFn.toString();
+        };
+
+        return baseFn;
+    }
 }
 
 if (typeof module === 'object' && typeof module.exports === 'object') {
