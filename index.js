@@ -1,3 +1,15 @@
+function overridePropertyGetter(baseFn, context, fnName, propertyName) {
+    var descriptor = Object.getOwnPropertyDescriptor(context[fnName], propertyName);
+
+    if (descriptor && descriptor.configurable) {
+        Object.defineProperty(context[fnName], propertyName, {
+            get: function () {
+                return baseFn[propertyName];
+            }
+        });
+    }
+}
+
 function overrideFn(context, fnName, fn) {
     if (typeof fnName === 'string') {
         return overrideFnInternal(context, fnName, fn);
@@ -36,23 +48,8 @@ function overrideFn(context, fnName, fn) {
             return fn.apply(this, params);
         };
 
-        try {
-            Object.defineProperties(context[fnName], {
-                length: {
-                    get: function () {
-                        return baseFn.length;
-                    }
-                },
-                name: {
-                    get: function () {
-                        return baseFn.name;
-                    }
-                }
-            });
-        }
-        catch (ex) {
-            console.warn(ex);
-        }
+        overridePropertyGetter(baseFn, context, fnName, 'name');
+        overridePropertyGetter(baseFn, context, fnName, 'length');
 
         context[fnName].toString = function () {
             return baseFn.toString();
