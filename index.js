@@ -13,6 +13,10 @@ function overridePropertyGetter(baseFn, context, fnName, propertyName) {
 function overrideFn(context, fnName, fn) {
     if (typeof fnName === 'string') {
         return overrideFnInternal(context, fnName, fn);
+    } else if (Array.isArray(fnName)) {
+        return fnName.map(function (name) {
+            return overrideFnInternal(context, name, fn);
+        });
     } else {
         var obj = arguments[1],
             keys = Object.keys(obj);
